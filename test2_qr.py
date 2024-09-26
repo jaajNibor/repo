@@ -10,16 +10,16 @@ from QRCodeGen import QRCodeGeneratorApp
 class TestQRCodeGeneratorApp(unittest.TestCase):
 
     def setUp(self):
-        # Set up the tkinter root and the app instance
+        # Set up le troot pour tkinter
         self.root = tk.Tk()  
         self.app = QRCodeGeneratorApp(self.root)
 
-    def tearDown(self):
-        # Destroy the tkinter root after each test to avoid interference
+    def TearDown(self):
+        # on destroy le root tkinter pour le prochain test 
         self.root.destroy()
 
-    @patch('qrcodegen.messagebox.showwarning')  # Mock messagebox.showwarning
-    def url_vide(self, mock_showwarning):
+    @patch('Tkinter.messagebox.showwarning')  # on fait un mock pour pouvoir simuler une utilisation
+    def _test_url_vide(self, mock_showwarning):
         #test avec champs url vide
         
         self.app.entry.get = MagicMock(return_value="")
@@ -27,23 +27,25 @@ class TestQRCodeGeneratorApp(unittest.TestCase):
         #génération du code
         self.app.generate_qr_code()
 
-        # Asssert que pas champs url vide donne un aertissement 
+        # Asssert que  champs url vide donne un aertissement 
         mock_showwarning.assert_called_once_with("Avertissement", "Veuillez entrer une adresse URL pour générer un QR Code.")
 
     @patch('QRCodeGen.ImageTk.PhotoImage')  # on mock photoimage qui devrait normalement render l'image, pour éviter de l'afficher pendant le test
-    def test_bonne_url(self, mock_photoimage):
+    def test_bonne_url(self, mock_PhotoImage):
 
         test_url = "http://Github/jaajNibor.repo"
         self.app.entry.get = MagicMock(return_value=test_url)
 
         # on génère le qr code (sans l'afficher)
         self.app.generate_qr_code()
-#vérifier que le code a été généré
+        #vérifier que le code a été généré
         self.assertIsNotNone(self.app.qr_image)
-        mock_photoimage.assert_called_once()
+        mock_PhotoImage.assert_called_once()
+
+        self.app.qr_image._PhotoImage__photo.write(qr_image_path)
 
     
-    def url_tres_longue_ou_courte(self):
+    def test_url_tres_longue_ou_courte(self):
         #^^
         test_inputs = [
             "a",  # c'est court
