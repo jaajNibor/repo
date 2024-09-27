@@ -7,7 +7,7 @@ from PIL import ImageTk, Image
 def app():
     # Création de la fenêtre Tkinter avant chaque test
     root = tk.Tk()
-    root.withdraw
+    root.withdraw()
     app_instance = QRCodeGeneratorApp(root)
     
     yield app_instance  # Retourner l'instance de l'application pour les tests
@@ -43,10 +43,10 @@ class TestQRCodeGen:
         # Vérifier que le QR code a été généré malgré la longueur de l'URL
       
         assert app.qr_image is not None, "Le QR code n'a pas été généré pour une URL très longue."
-  
-'''  def test_qr_code_generation_url_non_valide(self, app):
+
+'''    def test_qr_code_generation_url_non_valide(self, app):
         #vérifier avec une mauvaise url
-        app.entry.insert(3,"hg.cette-url-n'est-pa-valide")
+        app.entry.insert(0,"hg.cette-url-n'est-pa-valide")
         app.generate_qr_code()
-        assert app.qr_image is None, "l'url est valide."'''
-    
+        assert not hasattr(app, 'qr_image'), "l'url est valide."
+   ''' 

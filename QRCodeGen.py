@@ -38,6 +38,7 @@ class QRCodeGeneratorApp:
 
             self.qr_image = ImageTk.PhotoImage(img)
             self.image_label.config(image=self.qr_image)
+            self.image_label.image = self.qr_image
         else:
             messagebox.showwarning("Avertissement", "Veuillez entrer une adresse URL pour générer un QR Code.")
 
