@@ -44,7 +44,7 @@ class TestQRCodeGen:
       
         assert app.qr_image is not None, "Le QR code n'a pas été généré pour une URL très longue."
   
-  '''  def test_qr_code_generation_url_non_valide(self, app):
+'''  def test_qr_code_generation_url_non_valide(self, app):
         #vérifier avec une mauvaise url
         app.entry.insert(3,"hg.cette-url-n'est-pa-valide")
         app.generate_qr_code()
