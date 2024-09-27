@@ -22,6 +22,8 @@ class QRCodeGeneratorApp:
 
         self.image_label = tk.Label(master)
         self.image_label.pack()
+        self.qr_image = None 
+        
 
     def generate_qr_code(self):
         url = self.entry.get()
